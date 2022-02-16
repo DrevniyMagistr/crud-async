@@ -1,0 +1,32 @@
+{
+  "name": "crud-async",
+  "version": "1.0.0",
+  "description": "Crud-async",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /crud-async/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DrevniyMagistr/crud-async.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DrevniyMagistr/crud-async/issues"
+  },
+  "homepage": "https://github.com/DrevniyMagistr/crud-async#readme",
+  "devDependencies": {
+    "lodash.debounce": "^4.0.8",
+    "notiflix": "^3.2.4",
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-handlebars-precompile": "^1.0.2",
+    "parcel-plugin-nuke-dist": "^1.0.1",
+    "posthtml-include": "^1.7.2",
+    "sass": "^1.49.7"
+  },
+  "dependencies": {
+    "axios": "^0.26.0"
+  }
+}
