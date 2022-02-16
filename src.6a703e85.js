@@ -75,4 +75,4 @@ module.exports=require("./lib/axios");
 },{"./api/mockUsersApi":"OSwe"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss");var e=require("./js/api/mockUsersApi"),s=require("./js/components/UserCard");require("./js/userForm");const t=document.querySelector(".users-list");let r=[];const n=e=>{t.innerHTML="";const r=e.map(e=>(0,s.UserCard)(e));t.append(...r)},i=s=>{const{target:t}=s;if(t.closest(".delete-user-btn")){const{id:s}=t.dataset;(0,e.deleteUser)(s).then(()=>{r=r.filter(e=>e.id!==s),n(r)})}};(0,e.getUsers)().then(e=>{let{data:s}=e;r=s,n(s)}),t.addEventListener("click",i);
 },{"./sass/main.scss":"clu1","./js/api/mockUsersApi":"OSwe","./js/components/UserCard":"XanH","./js/userForm":"wEUv"}]},{},["Focm"], null)
-//# sourceMappingURL=/crud-async/src.64eb82d3.js.map
+//# sourceMappingURL=/crud-async/src.6a703e85.js.map
