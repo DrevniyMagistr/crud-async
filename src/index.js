@@ -1,10 +1,11 @@
 import './sass/main.scss';
 import { getUsers, deleteUser } from './js/api/mockUsersApi';
 import { UserCard } from './js/components/UserCard';
+import { userListFactory } from './js/userList';
+import { addUserForm } from './js/userForm';
 import './js/userForm';
 
 const usersListRef = document.querySelector('.users-list');
-let users = [];
 
 const renderUsersList = usersList => {
   usersListRef.innerHTML = '';
@@ -12,22 +13,40 @@ const renderUsersList = usersList => {
   usersListRef.append(...usersNodeList);
 };
 
-const handleUserDelete = event => {
+const userListManager = userListFactory({ onChange: renderUsersList });
+
+const handleUserDelete = async event => {
   const { target } = event;
 
   if (target.closest('.delete-user-btn')) {
     const { id } = target.dataset;
 
-    deleteUser(id).then(() => {
-      users = users.filter(user => user.id !== id);
-      renderUsersList(users);
-    });
+    await deleteUser(id);
+    userListManager.deleteUser(id);
   }
 };
 
-getUsers().then(({ data: usersList }) => {
-  users = usersList;
-  renderUsersList(usersList);
+const render = async () => {
+  const { data: usersList } = await getUsers();
+  userListManager.setUsers(usersList);
+};
+
+const handleSubmit = async( body)=> {
+  
+    try {
+      const { data: newUser } = await createUser(body);
+      userListManager.addUsers(newUser);
+      resetForm();
+    } catch (error) {
+      isDataLoading = false;
+    }
+  
+}
+
+const { resetForm } = addUserForm({
+  onSubmit: handleSubmit,
 });
 
 usersListRef.addEventListener('click', handleUserDelete);
+
+render();

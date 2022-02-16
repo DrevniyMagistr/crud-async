@@ -1,36 +1,43 @@
 import { createUser } from './api/mockUsersApi';
 
-const userFormRef = document.querySelector('.user-form');
-let isDataLoading = false;
+export const addUserForm = onSubmit => {
+  const userFormRef = document.querySelector('.user-form');
+  let isDataLoading = false;
 
-const handleSubmit = event => {
-  event.preventDefault();
-  const { currentTarget: formRef } = event;
-  if (isDataLoading) return;
-  isDataLoading = true;
+  const handleSubmit = async event => {
+    event.preventDefault();
+    const { currentTarget: formRef } = event;
 
-  /** Form elements */
-  // const { name, description } = currentTarget.elements;
-  // const body = {
-  //   name: name.value,
-  //   description: description.value,
-  // };
+    if (isDataLoading) return;
 
-  /** Form data */
-  const formData = new FormData(formRef);
-  const body = {};
+    isDataLoading = true;
 
-  formData.forEach((value, key) => {
-    body[key] = value;
-  });
+    /** Form elements */
+    // const { name, description } = currentTarget.elements;
+    // const body = {
+    //   name: name.value,
+    //   description: description.value,
+    // };
 
-  createUser(body)
-    .then(() => {
-      formRef.reset();
-    })
-    .finally(() => {
-      isDataLoading = false;
+    /** Form data */
+    const formData = new FormData(formRef);
+    const body = {};
+
+    formData.forEach((value, key) => {
+      body[key] = value;
     });
-};
 
-userFormRef.addEventListener('submit', handleSubmit);
+    onSubmit(body);
+
+    // try {
+    //   await createUser(body);
+    //   formRef.reset();
+    // } catch (error) {
+    //   isDataLoading = false;
+    // }
+  };
+
+  userFormRef.addEventListener('submit', handleSubmit);
+  
+  return reset
+};
